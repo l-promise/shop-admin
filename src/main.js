@@ -8,6 +8,18 @@ import "./assets/css/index.css";
 Vue.use(elementUI);
 Vue.config.productionTip = false;
 
+router.beforeEach((to, from, next) => {
+  if (to.path === "/login") {
+    next();
+    return;
+  }
+  if (localStorage.getItem("token")) {
+    next();
+  } else {
+    router.push("/login");
+  }
+});
+
 new Vue({
   router,
   render: h => h(App)
